@@ -1,18 +1,19 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.border.Border;
 
 public class SequenceGameGUI extends JFrame {
 	
-	JLayeredPane layeredPane;
 	JPanel boardPanel, handPanel, deckPanel, playerPanel;
 	//matrix of card buttons in board order
 	SButton[][] cardButtons = new SButton[10][10];
 	//matrix of token buttons 
-	JButton[][] tokenButtons = new JButton[10][10];
+	SButton[][] tokenButtons = new SButton[10][10];
+	//button for card deck
+	JButton deckButton;
 	//controlled by SequenceGame, set when a jack in hand is played 
 	boolean twoEyedJackIsPlayed, oneEyedJackIsPlayed;
 	int jackNumber;
@@ -145,18 +146,28 @@ public class SequenceGameGUI extends JFrame {
         		SButton b = cardButtons[i][j] = new SButton();
         		
         		//create a button for each token on the board
-        		JButton t = tokenButtons[i][j] = new JButton();
+        		SButton t = tokenButtons[i][j] = new SButton();
         		
         		
         		//***TOKEN BUTTON
+        		//assign the unique i and j value (board position) to each button
+        		t.i = i; t.j = j;
         		//set action for TOKEN button
         		t.addActionListener(
         				new ActionListener() {
         					public void actionPerformed(ActionEvent e) {
+        						//if ONE-eyed jack is played
+        						//0(a). disable all cards in hand
+        						for (HashMap.Entry<Integer, JButton> mapElement : ((HumanSequencePlayer) (game.currentPlayer)).getHandMap().entrySet()) { 
+        							mapElement.getValue().setEnabled(false);
+        						}
+        						//0(b). enable card deck for drawing a new card
+        						deckButton.setEnabled(true);
         						//1. reset all disabled card icons
         						makeAllDisabledCardsNormal();
-        						//2. set token icon to null
+        						//2. set token icon to null AND update board[][]
         						t.setIcon(null);
+        						game.board[t.i][t.j] = ' ';
         						//3. disable all token buttons
 								for(int i=0; i<10; i++)
 									for(int j=0; j<10; j++)
@@ -173,6 +184,9 @@ public class SequenceGameGUI extends JFrame {
         						}//end of inner if
         						//5. reset jack fields
         						oneEyedJackIsPlayed = false;
+        						//6. update SequenceGame
+        						game.lastPlayedX = -1;
+        						game.resume();
         					}
         				});
         		t.setEnabled(false);
@@ -194,8 +208,14 @@ public class SequenceGameGUI extends JFrame {
         				new ActionListener() {
         					public void actionPerformed(ActionEvent e) {
         						//when an eligible card is played,
-        						char color = game.currentPlayerColor; 
+        						//0(a). disable all cards in hand
+        						for (HashMap.Entry<Integer, JButton> mapElement : ((HumanSequencePlayer) (game.currentPlayer)).getHandMap().entrySet()) { 
+        							mapElement.getValue().setEnabled(false);
+        						}
+        						//0(b). enable card deck for drawing a new card
+        						deckButton.setEnabled(true);
         						//1. update board[][]
+        						char color = game.currentPlayerColor; 
         						game.board[b.i][b.j] = color;
         						//2. display player token
         						switch(color) {
@@ -238,6 +258,10 @@ public class SequenceGameGUI extends JFrame {
     	        						handPanel.repaint();
             						}//end of inner if statement
         						}//end of else
+        						
+        						game.lastPlayedX = b.i;
+        						game.lastPlayedY = b.j;
+        						game.resume();
         					}//end of actionPerformed
         				});
         		b.setEnabled(false);
@@ -282,6 +306,7 @@ public class SequenceGameGUI extends JFrame {
       		cardButtons[9][9].setEnabled(false);
         
         //set buttons
+      	//quit
         JButton quit = new JButton("Quit");
         quit.addActionListener(
         		new ActionListener() {
@@ -290,11 +315,40 @@ public class SequenceGameGUI extends JFrame {
         			}
         		});
         quit.setSize(100, 100);
-        deckPanel.add(quit);
+        playerPanel.add(quit);
+        
+        //deck button
+        //resize icon
+        ImageIcon deckIcon = new ImageIcon("cardBack.png");
+		Image deckImg = deckIcon.getImage();
+		Image newDeckImg = deckImg.getScaledInstance(bw, bh, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newDeckIcon = new ImageIcon(newDeckImg);
+		deckButton = new JButton(newDeckIcon);
+		deckButton.setContentAreaFilled(false);
+        deckButton.addActionListener(
+        		new ActionListener() {
+        			public void actionPerformed(ActionEvent e) {
+        				//disable to avoid drawing again
+        				deckButton.setEnabled(false);
+        				
+        				//draw a new card to add to player's hand (LinkedList)
+        				ASequenceCard c = game.Chris.dealCard(game.currentPlayer);
+        				//display the new card
+        				game.displayNewHandCard(c, (HumanSequencePlayer)game.currentPlayer);
+        				
+        				//end turn
+						//game.isHumanPlayerTurn = false;
+						game.resume();
+        			}//end of actionPerformed
+        		});
+        deckButton.setEnabled(false);
+        deckPanel.add(deckButton);
+        
+        
         	
         //set size and name
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        setUndecorated(true);
+        //setUndecorated(true);
         setTitle("Sequence Game");        
         
 	}//end of constructor

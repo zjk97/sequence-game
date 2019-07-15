@@ -14,12 +14,14 @@ public class HumanSequencePlayer extends ASequencePlayer {
 		
 	}
 	
-	void setColor(String color) {
-		playerColor = color;
-	}
-	
 	HashMap<Integer, JButton> getHandMap() {
 		return handMap;
+	}
+	
+	void enableAllHandCards() {
+		for (HashMap.Entry<Integer, JButton> mapElement : handMap.entrySet()) { 
+			mapElement.getValue().setEnabled(true);
+		}
 	}
 
 }

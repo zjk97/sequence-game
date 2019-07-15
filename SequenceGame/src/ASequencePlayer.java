@@ -3,7 +3,7 @@ import java.util.LinkedList;
 public class ASequencePlayer {
 	
 	protected int playerNumber;
-	protected String playerColor;
+	protected char playerColor;
 	LinkedList<ASequenceCard> hand = new LinkedList<ASequenceCard>();
 
 	public ASequencePlayer(int number) {
