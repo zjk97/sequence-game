@@ -437,13 +437,15 @@ public class SequenceGame {
 				}//outer while
 			}//end of if
 			else {
+				
 				//cpu starts first
 				while(true) {
 					//computer's turn
 					System.out.println("CPU player's turn has started...");
 					currentPlayer = p0;
 					currentPlayerColor = p0.playerColor;
-
+					
+					
 					//computer makes a move
 					((CpuSequencePlayer)(p0)).makeAMove(thisGame);
 
