@@ -4,6 +4,7 @@ public class ASequencePlayer {
 	
 	protected int playerNumber;
 	protected char playerColor;
+	String playerName;
 	LinkedList<ASequenceCard> hand = new LinkedList<ASequenceCard>();
 
 	public ASequencePlayer(int number) {

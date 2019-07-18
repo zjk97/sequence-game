@@ -1,8 +1,10 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 
@@ -13,8 +15,9 @@ public class SequenceGame {
 	char gameResult = ' ';
 	ASequencePlayer[] playerList;
 	ASequencePlayer currentPlayer;
+	String winner;
 	CardDealer Chris;
-	final char BLANK = ' ';
+	final char BLANK = ' ', CORNER = 'C';
 	SequenceGameGUI gui;
 	SequenceGame thisGame = this;
 	Border empty = BorderFactory.createEmptyBorder();
@@ -22,7 +25,7 @@ public class SequenceGame {
 		//x and y coordinate of the card most recently played
 		int lastPlayedX = -1, lastPlayedY = -1;
 	
-	public SequenceGame(int numberOfPlayers) {
+	public SequenceGame(int numberOfPlayers) throws InterruptedException {
 	
 		long startTime = System.nanoTime();
 		
@@ -37,7 +40,11 @@ public class SequenceGame {
         long endTime = System.nanoTime();
         System.out.println(String.valueOf(endTime - startTime));
         
-        //startGame(numberOfPlayers);
+        startGame(numberOfPlayers);
+        gui.dispose();
+        //give notice while starting a new game
+		JOptionPane.showMessageDialog(null,"Loading a new game...",
+				"Just a second",JOptionPane.INFORMATION_MESSAGE);
 	}
 
 
@@ -45,10 +52,14 @@ public class SequenceGame {
 		
 		board = new char[10][10];
 		
+		//make every slot of the board BLANK
 		for(int r=0; r<10; r++)
 			for(int c=0; c<10; c++)
 				board[r][c] = BLANK;
 		
+		//fill the four corners
+		board[0][0] = CORNER; board[0][9] = CORNER;
+		board[9][0] = CORNER; board[9][0] = CORNER;
 	}
 	
 	void createPlayers(int n) {
@@ -60,9 +71,7 @@ public class SequenceGame {
 			playerList = new ASequencePlayer[2];
 			
 			playerList[0] = new HumanSequencePlayer(0);
-			playerList[0].playerColor = 'r';
 			playerList[1] = new CpuSequencePlayer(1);
-			playerList[1].playerColor = 'b';
 		}
 		else {
 			//multi-player mode, no CPU player necessary
@@ -81,10 +90,6 @@ public class SequenceGame {
 		Chris = new CardDealer();
 		Chris.shuffleCards();//shuffle cards
 		Chris.shuffle(playerList);//shuffle player order
-		
-		//assign the first player to play
-		currentPlayer = playerList[0];
-		currentPlayerColor = playerList[0].playerColor;
 		
 		switch(numberOfPlayers) {
 			case 1:
@@ -122,7 +127,6 @@ public class SequenceGame {
 	boolean isGameOver(int x, int y) {
 		/*
 		 * input x, y coordinate of the token just played
-		 * ***(if a remove card is played, DO NOT call this method)
 		 * determine if any player has won
 		 */
 		
@@ -134,33 +138,39 @@ public class SequenceGame {
 		//Top-left
 		if(board[0][1]!=' ' && board[0][1]==board[0][2] && board[0][2]==board[0][3] && board[0][3]==board[0][4]) {
 			gameResult = board[0][1];
+			winner = currentPlayer.playerName;
 			System.out.println("Top-Left Win");
 			return true;
 		}
 		if(board[1][0]!=' ' && board[1][0]==board[2][0] && board[2][0]==board[3][0] && board[3][0]==board[4][0]) {
 			gameResult = board[1][0];
+			winner = currentPlayer.playerName;
 			System.out.println("Top-Left Win");
 			return true;
 		}
 		if(board[1][1]!=' ' && board[1][1]==board[2][2] && board[2][2]==board[3][3] && board[3][3]==board[4][4]) {
 			gameResult = board[1][1];
+			winner = currentPlayer.playerName;
 			System.out.println("Top-Left Win");
 			return true;
 		}
 		
 		//Top-right
-		if(board[0][4]!=' ' && board[0][4]==board[0][5] && board[0][6]==board[0][7] && board[0][7]==board[0][8]) {
-			gameResult = board[0][4];
+		if(board[0][5]!=' ' && board[0][5]==board[0][6] && board[0][6]==board[0][7] && board[0][7]==board[0][8]) {
+			gameResult = board[0][5];
+			winner = currentPlayer.playerName;
 			System.out.println("Top-Right Win");
 			return true;
 		}
 		if(board[1][9]!=' ' && board[1][9]==board[2][9] && board[2][9]==board[3][9] && board[3][9]==board[4][9]) {
 			gameResult = board[1][1];
+			winner = currentPlayer.playerName;
 			System.out.println("Top-Right Win");
 			return true;
 		}
 		if(board[1][8]!=' ' && board[1][8]==board[2][7] && board[2][7]==board[3][6] && board[3][6]==board[4][5]) {
 			gameResult = board[1][8];
+			winner = currentPlayer.playerName;
 			System.out.println("Top-Right Win");
 			return true;
 		}
@@ -168,16 +178,19 @@ public class SequenceGame {
 		//Bottom-left
 		if(board[0][8]!=' ' && board[0][8]==board[0][7] && board[0][7]==board[0][6] && board[0][6]==board[0][5]) {
 			gameResult = board[0][8];
+			winner = currentPlayer.playerName;
 			System.out.println("Bottom-Left Win");
 			return true;
 		}
 		if(board[9][1]!=' ' && board[9][1]==board[9][2] && board[9][2]==board[9][3] && board[9][3]==board[9][4]) {
 			gameResult = board[9][1];
+			winner = currentPlayer.playerName;
 			System.out.println("Bottom-Left Win");
 			return true;
 		}
 		if(board[8][1]!=' ' && board[8][1]==board[7][2] && board[7][2]==board[6][3] && board[6][3]==board[5][4]) {
 			gameResult = board[8][1];
+			winner = currentPlayer.playerName;
 			System.out.println("Bottom-Left Win");
 			return true;
 		}
@@ -185,16 +198,19 @@ public class SequenceGame {
 		//Bottom-right
 		if(board[9][8]!=' ' && board[9][8]==board[9][7] && board[9][7]==board[9][6] && board[9][6]==board[9][5]) {
 			gameResult = board[9][8];
+			winner = currentPlayer.playerName;
 			System.out.println("Bottom-Right Win");
 			return true;
 		}
 		if(board[8][9]!=' ' && board[8][9]==board[7][9] && board[7][9]==board[6][9] && board[6][9]==board[5][9]) {
 			gameResult = board[8][9];
+			winner = currentPlayer.playerName;
 			System.out.println("Bottom-Right Win");
 			return true;
 		}
 		if(board[8][8]!=' ' && board[8][8]==board[7][7] && board[7][7]==board[6][6] && board[6][6]==board[5][5]) {
 			gameResult = board[8][8];
+			winner = currentPlayer.playerName;
 			System.out.println("Bottom-Right Win");
 			return true;
 		}
@@ -230,6 +246,7 @@ public class SequenceGame {
 		}
 		if(sum>=4) {
 			gameResult = board[x][y];
+			winner = currentPlayer.playerName;
 			System.out.println("Left-Right Win " + sum);
 			return true;
 		}
@@ -253,6 +270,7 @@ public class SequenceGame {
 		}
 		if(sum>=4) {
 			gameResult = board[x][y];
+			winner = currentPlayer.playerName;
 			System.out.println("Up-Down Win " + sum);
 			return true;
 		}
@@ -280,6 +298,7 @@ public class SequenceGame {
 		}
 		if(sum>=4) {
 			gameResult = board[x][y];
+			winner = currentPlayer.playerName;
 			System.out.println("Left-Up + Right-down Win " + sum);
 			return true;
 		}
@@ -303,7 +322,26 @@ public class SequenceGame {
 		}
 		if(sum>=4) {
 			gameResult = board[x][y];
+			winner = currentPlayer.playerName;
 			System.out.println("Left-down + Right-up Win "+ sum);
+			return true;
+		}
+
+		
+		//if board is filled, but nobody has won then it's a tie
+		boolean hasEmpty = false;
+		outerloop:
+		for(int i=0; i<10; i++)
+			for(int j=0; j<10; j++) 
+				if(board[i][j]==' ') {
+					hasEmpty = true;
+					break outerloop;
+				}
+		
+		if(!hasEmpty) {
+			//game ends as a tie
+			gameResult = 'T';
+			winner = "TIE";
 			return true;
 		}
 		
@@ -311,17 +349,21 @@ public class SequenceGame {
 		return false;
 	}//end of isGameOver
 
+	
+	
 	void displayNewHandCard(ASequenceCard c, HumanSequencePlayer player) {
 		JButton b = new JButton();
 		//immediately disable this button
 		b.setEnabled(false);
 		
-		//add the button for this card to player handMap
-		player.getHandMap().put(new Integer(c.getCardNumber()), b);
 
 		int x1 = c.getX1(), y1 = c.getY1();
 		int x2 = c.getX2(), y2 = c.getY2();
+		int cardNumber = c.getCardNumber();
 
+		//add the button for this card to player handMap
+		player.getHandMap().put(new Integer(cardNumber), b);
+		
 		//set action when a hand card is selected
 		b.setBorder(empty);
 		b.setIcon(gui.handCardImages[x1][y1]);
@@ -331,6 +373,10 @@ public class SequenceGame {
 						//reset gui's jack fields
 						gui.twoEyedJackIsPlayed = false;
 						gui.oneEyedJackIsPlayed = false;
+						
+						//reset recycle fields
+						gui.isRecycled = false;
+						gui.deckButton.setEnabled(false);
 						
 						if(!c.getIsTwoEyedJack()) {
 							//a non-jack or one-eyed jack
@@ -349,8 +395,8 @@ public class SequenceGame {
 								b1.x1 = x1; b1.y1 = y1; b2.x1 = x1; b2.y1 = y1;
 								b1.x2 = x2; b2.y2 = y2; b2.x2 = x2; b2.y2 = y2;
 								//store the card number
-								b1.cardNumber = c.getCardNumber();
-								b2.cardNumber = c.getCardNumber();
+								b1.cardNumber = cardNumber;
+								b2.cardNumber = cardNumber;
 								//highlight the cards on the board AND enable the buttons
 								if(board[x1][y1]==' ') {
 									b1.setIcon(gui.normalCardImages[x1][y1]);
@@ -359,6 +405,12 @@ public class SequenceGame {
 								if(board[x2][y2]==' ') {
 									b2.setIcon(gui.normalCardImages[x2][y2]);
 									b2.setEnabled(true);
+								}
+								if(board[x1][y1]!=' ' && board[x2][y2]!=' ') {
+									//both spots are taken, recycle
+									gui.isRecycled = true;
+									gui.recycledCard = c;
+									gui.deckButton.setEnabled(true);
 								}
 							}
 							else {
@@ -369,7 +421,7 @@ public class SequenceGame {
 											gui.tokenButtons[i][j].setEnabled(false);
 								
 								gui.oneEyedJackIsPlayed = true;
-								gui.jackNumber = c.getCardNumber();
+								gui.jackNumber = cardNumber;
 								//enable all the available token buttons
 								for(int i=0; i<10; i++)
 									for(int j=0; j<10; j++)
@@ -380,7 +432,7 @@ public class SequenceGame {
 						else {
 							//a two eyed jack
 							gui.twoEyedJackIsPlayed = true;
-							gui.jackNumber = c.getCardNumber();
+							gui.jackNumber = cardNumber;
 							gui.enableAllCards(thisGame, 1);
 						}
 					}
@@ -394,22 +446,58 @@ public class SequenceGame {
 	void startGame(int numberOfPlayers) throws InterruptedException {
 		switch(numberOfPlayers) {
 		case 1:
+			//single player mode
 			ASequencePlayer p0 = playerList[0];
-			ASequencePlayer p1 = playerList[1];
+			HumanSequencePlayer human;
+			CpuSequencePlayer cpu;
+			
+			if(p0 instanceof HumanSequencePlayer) {
+				human = (HumanSequencePlayer) p0;
+				cpu = (CpuSequencePlayer) playerList[1];
+			}
+			else {
+				cpu = (CpuSequencePlayer) p0;
+				human = (HumanSequencePlayer) playerList[1];
+			}
+			
+			
+			
+			//assign player name and color
+			human.playerName = JOptionPane.showInputDialog("Please enter your name: ", "Rotty Coyo");
+			if(human.playerName=="")
+				//set default name
+				human.playerName = "Rotty Coyo";
+			
+			JList<ImageIcon> list = new JList<ImageIcon>(new ImageIcon[] {gui.redToken, gui.blueToken, gui.greenToken});
+			JOptionPane.showMessageDialog(
+			  null, list, "Please choose your color", JOptionPane.PLAIN_MESSAGE);
+			
+			switch(list.getSelectedIndex()) {
+				case 0: 
+					human.playerColor = 'r';
+					cpu.selectColor(0);
+				break;
+				case 1: human.playerColor = 'b'; 
+					cpu.selectColor(1);
+				break;
+				case 2: human.playerColor = 'g'; 
+					cpu.selectColor(2);
+				break;
+			}
 			
 			if(p0 instanceof HumanSequencePlayer) {
 				//human starts first
 				while(true) {
 					if(isGameOver(lastPlayedX, lastPlayedY)) {
 						//game is over
-						JOptionPane.showMessageDialog(null,"Winner is:" + currentPlayer,
+						JOptionPane.showMessageDialog(null,"Winner is: " + winner,
 								"GAME OVER",JOptionPane.ERROR_MESSAGE);
 						break;
 					}
 					else {
-						currentPlayer = p0;
-						currentPlayerColor = p0.playerColor;
-						((HumanSequencePlayer) p0).enableAllHandCards();
+						currentPlayer = human;
+						currentPlayerColor = human.playerColor;
+						human.enableAllHandCards();
 						System.out.println("Human player's turn has started...");
 						//wait until human player makes a move
 						synchronized(this) {
@@ -418,7 +506,7 @@ public class SequenceGame {
 						//check if the move wins
 						if(isGameOver(lastPlayedX, lastPlayedY)) {
 							//game is over
-							JOptionPane.showMessageDialog(null,"Winner is:" + currentPlayer,
+							JOptionPane.showMessageDialog(null,"Winner is: " + winner,
 									"GAME OVER",JOptionPane.ERROR_MESSAGE);
 							break;
 						}
@@ -428,12 +516,12 @@ public class SequenceGame {
 					}
 
 					//computer's turn
-					currentPlayer = p1;
-					currentPlayerColor = p1.playerColor;
+					currentPlayer = cpu;
+					currentPlayerColor = cpu.playerColor;
 
 					System.out.println("CPU player's turn has started...");
 					//computer makes a move
-					((CpuSequencePlayer)(p1)).makeAMove(thisGame);
+					((CpuSequencePlayer)(cpu)).makeAMove(thisGame);
 				}//outer while
 			}//end of if
 			else {
@@ -442,24 +530,24 @@ public class SequenceGame {
 				while(true) {
 					//computer's turn
 					System.out.println("CPU player's turn has started...");
-					currentPlayer = p0;
-					currentPlayerColor = p0.playerColor;
+					currentPlayer = cpu;
+					currentPlayerColor = cpu.playerColor;
 					
 					
 					//computer makes a move
-					((CpuSequencePlayer)(p0)).makeAMove(thisGame);
+					cpu.makeAMove(thisGame);
 
 					if(isGameOver(lastPlayedX, lastPlayedY)) {
 						//game is over
-						JOptionPane.showMessageDialog(null,"Winner is:" + currentPlayer,
+						JOptionPane.showMessageDialog(null,"Winner is: " + winner,
 								"GAME OVER",JOptionPane.ERROR_MESSAGE);
 						break;
 					}
 					else {
-						currentPlayer = p1;
-						currentPlayerColor = p1.playerColor;
+						currentPlayer = human;
+						currentPlayerColor = human.playerColor;
 
-						((HumanSequencePlayer) p1).enableAllHandCards();
+						human.enableAllHandCards();
 						System.out.println("Human player's turn has started...");
 						//wait until human player makes a move
 						synchronized(this) {
@@ -467,7 +555,7 @@ public class SequenceGame {
 						}
 						if(isGameOver(lastPlayedX, lastPlayedY)) {
 							//game is over
-							JOptionPane.showMessageDialog(null,"Winner is:" + currentPlayer,
+							JOptionPane.showMessageDialog(null,"Winner is: " + winner,
 									"GAME OVER",JOptionPane.ERROR_MESSAGE);
 							break;
 						}
@@ -490,18 +578,21 @@ public class SequenceGame {
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
-		
-		SequenceGame g = new SequenceGame(1);
-		
-		ASequencePlayer[] l = g.playerList;
-		
-		System.out.println("Players:");
-		for(int i=0; i<l.length;i++) {
-			System.out.print("\tPlayer " + l[i].playerNumber + String.valueOf(l[i].getClass()) + ":\n\t\tHand: ");
-			l[i].printHand();
-		}
 
-		g.startGame(1);
-	}
+		while(true) {
+			SequenceGame g = new SequenceGame(1);
 
-}
+			/*
+			ASequencePlayer[] l = g.playerList;
+
+			System.out.println("Players:");
+			for(int i=0; i<l.length;i++) {
+				System.out.print("\tPlayer " + l[i].playerNumber + String.valueOf(l[i].getClass()) + ":\n\t\tHand: ");
+				l[i].printHand();
+			}
+				*/
+		}//end of while
+
+	}//end of main method
+
+}//end of class

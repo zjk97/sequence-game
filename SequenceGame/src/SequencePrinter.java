@@ -125,7 +125,7 @@ public class SequencePrinter {
 		for(int i=0; i<10; i++) {
 			System.out.print("{");
 			for(int j=0; j<10; j++)
-				System.out.printf("new ImageIcon(\"handCards/%s\"), ", cardImages[i][j]);
+				System.out.printf("new ImageIcon(getClass().getResource(\"greyCards/%s\")), ", cardImages[i][j]);
 			System.out.println("}");
 		}
 		

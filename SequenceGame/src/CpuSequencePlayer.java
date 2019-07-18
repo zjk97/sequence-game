@@ -2,11 +2,12 @@ import java.util.Random;
 
 public class CpuSequencePlayer extends ASequencePlayer {
 	Random r = new Random();
+	char[] colorSelection = {'r', 'b', 'g'};
 
 	public CpuSequencePlayer(int number) {
 
 		super(number);
-
+		playerName = "CPU Overlord";
 
 	}
 
@@ -25,7 +26,8 @@ public class CpuSequencePlayer extends ASequencePlayer {
 				outerloop:
 				for(int i=0; i<10; i++)
 					for(int j=0; j<10; j++)
-						if(game.board[i][j]!=' ' && r.nextInt(10)==5) {
+						if(game.board[i][j]!=' ' && game.board[i][j]!='C'
+							&& game.board[i][j]!=playerColor && r.nextInt(10)==5) {
 							//a token found at this location, 1/10 chance to be selected
 							game.board[i][j] = ' ';
 							gui.tokenButtons[i][j].setIcon(null);
@@ -168,5 +170,14 @@ public class CpuSequencePlayer extends ASequencePlayer {
 		game.Chris.dealCard(this);
 
 		System.out.println("CPU ended turn");
+	}//end of makeAMove
+	
+	void selectColor(int i) {
+		int s;
+		do {
+			s = r.nextInt(3);
+		}while(s==i);
+		
+		playerColor = colorSelection[s];
 	}
-}
+}//end of class
