@@ -132,42 +132,6 @@ public class SequencePrinter {
 		}
 			*/
 		
-		
-		/*
-		 * 
-		case 41:
-		case 93:
-			//J of S
-			x1 = 0; y1 = 0;
-			isOneEyedJack = true;
-			
-			imageFileName = "handCards/JS.png";
-			break;
-		case 42:
-		case 94:
-			//J of H
-			x1 = 0; y1 = 9;
-			isOneEyedJack = true;
-			
-			imageFileName = "handCards/JH.png";
-			break;
-		case 43:
-		case 95:
-			//J of D
-			x1 = 9; y1 = 0;
-			isTwoEyedJack = true;
-			
-			imageFileName = "handCards/JD.png";
-			break;
-		case 44:
-		case 96:
-			//J of C
-			x1 = 9; y1 = 9;
-			isTwoEyedJack = true;
-			
-			imageFileName = "handCards/JC.png";
-			break;
-		 */
 	}
 
 }
