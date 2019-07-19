@@ -20,6 +20,8 @@ public class SequenceGameGUI extends JFrame {
 	//controlled by SequenceGame, set when a card is recycled
 	boolean isRecycled;
 	ASequenceCard recycledCard;
+	//controlled by SequenceGame, notify which card to remove from hand
+	int removedHandCardIndex;
 	
 	ImageIcon redToken = new ImageIcon(getClass().getResource("tokens/redToken.png"));
 	ImageIcon blueToken = new ImageIcon(getClass().getResource("tokens/blueToken.png"));
@@ -183,7 +185,7 @@ public class SequenceGameGUI extends JFrame {
 											tokenButtons[i][j].setEnabled(false);
 								//4. remove one eyed jack from hand
         						ASequenceCard card = new ASequenceCard(jackNumber);
-        						game.currentPlayer.hand.remove(card);
+        						game.currentPlayer.hand.remove(removedHandCardIndex);
         						if(game.currentPlayer instanceof HumanSequencePlayer) {
 	        						handPanel.remove(
 	        								((HumanSequencePlayer) game
@@ -195,6 +197,7 @@ public class SequenceGameGUI extends JFrame {
         						oneEyedJackIsPlayed = false;
         						//6. update SequenceGame
         						game.lastPlayedX = -1;
+        						game.lastPlayedCard = card;
         						game.resume();
         					}
         				});
@@ -240,7 +243,7 @@ public class SequenceGameGUI extends JFrame {
         							disableAllCards();
         							//5. remove wild jack from hand
             						ASequenceCard card = new ASequenceCard(jackNumber);
-            						game.currentPlayer.hand.remove(card);
+            						game.currentPlayer.hand.remove(removedHandCardIndex);
             						if(game.currentPlayer instanceof HumanSequencePlayer) {
     	        						handPanel.remove(
     	        								((HumanSequencePlayer) game
@@ -250,6 +253,8 @@ public class SequenceGameGUI extends JFrame {
             						}//end of inner if
             						//6. reset jack fields
             						twoEyedJackIsPlayed = false;
+            						//7. update lastPlayedCard
+            						game.lastPlayedCard = card;
         						}
         						else {
         							//a non-jack card is played
@@ -258,7 +263,7 @@ public class SequenceGameGUI extends JFrame {
             						cardButtons[b.x2][b.y2].setEnabled(false);
             						//5. remove the card from hand
             						ASequenceCard card = new ASequenceCard(b.cardNumber);
-            						game.currentPlayer.hand.remove(card);
+            						game.currentPlayer.hand.remove(removedHandCardIndex);
             						if(game.currentPlayer instanceof HumanSequencePlayer) {
     	        						handPanel.remove(
     	        								((HumanSequencePlayer) game
@@ -266,6 +271,8 @@ public class SequenceGameGUI extends JFrame {
     	        											.getHandMap().get(card.getCardNumber()));
     	        						handPanel.repaint();
             						}//end of inner if statement
+            						//6. update lastPlayedCard
+            						game.lastPlayedCard = card;
         						}//end of else
         						
         						game.lastPlayedX = b.i;
@@ -343,13 +350,15 @@ public class SequenceGameGUI extends JFrame {
         				//disable to avoid drawing again
         				deckButton.setEnabled(false);
         				
-        				//draw a new card to add to player's hand (LinkedList)
-        				ASequenceCard c = game.Chris.dealCard(game.currentPlayer);
-        				//display the new card
-        				game.displayNewHandCard(c, (HumanSequencePlayer)game.currentPlayer);
+        				ASequenceCard c;
         				
         				if(isRecycled) {
         					//do NOT end turn
+            				//draw a new card to add to player's hand (LinkedList)
+            				c = game.Chris.dealCard(game.currentPlayer);
+            				//display the new card
+            				game.displayNewHandCard(c, (HumanSequencePlayer)game.currentPlayer);
+            				//remove recycle card
         					game.currentPlayer.hand.remove(recycledCard);
         					handPanel.remove(
     								((HumanSequencePlayer) game
@@ -364,9 +373,16 @@ public class SequenceGameGUI extends JFrame {
     						
     						//isRecycled = false;
         				}
-        				else
+        				else {
 	        				//end turn
+            				
+            				//draw a new card to add to player's hand (LinkedList)
+            				c = game.Chris.dealCard(game.currentPlayer);
+            				//display the new card
+            				game.displayNewHandCard(c, (HumanSequencePlayer)game.currentPlayer);
+            				
 							game.resume();
+        				}
         			}//end of actionPerformed
         		});
         deckButton.setEnabled(false);
@@ -376,7 +392,7 @@ public class SequenceGameGUI extends JFrame {
         	
         //set size and name
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        //setUndecorated(true);
+        setUndecorated(true);
         setTitle("Sequence Game");        
         
 	}//end of constructor

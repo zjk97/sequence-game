@@ -85,7 +85,7 @@ public class SequencePrinter {
 		for(int i=1; i<53; i++) {
 			System.out.printf("case %d:\ncase %d:\n\t", i, i+52);
 			findACard(c[counter]);
-			System.out.printf("\n\timageFileName = \"handCards/%s.png\";\n", c[counter]);
+			System.out.printf("\n\tcardName = \"%s\";\n", c[counter]);
 			System.out.println("\tbreak;");
 
 			counter++;
@@ -109,7 +109,9 @@ public class SequencePrinter {
 				"QS", "QH", "QD", "QC",
 				"KS", "KH", "KD", "KC"};
 		
-		// printing an array of ImageIcons
+		ASequenceCardMethodBuilder(c);
+		
+		/* printing an array of ImageIcons
 		String[][] cardImages = {
 				{"corner.png", "AC.png", "KC.png", "QC.png", "10C.png", "9C.png", "8C.png", "7C.png", "6C.png", "corner.png"},
 				{"AD.png", "7S.png", "8S.png", "9S.png", "10S.png", "QS.png", "KS.png", "AS.png", "5C.png", "2S.png"},
@@ -128,9 +130,44 @@ public class SequencePrinter {
 				System.out.printf("new ImageIcon(getClass().getResource(\"greyCards/%s\")), ", cardImages[i][j]);
 			System.out.println("}");
 		}
+			*/
 		
 		
-		
+		/*
+		 * 
+		case 41:
+		case 93:
+			//J of S
+			x1 = 0; y1 = 0;
+			isOneEyedJack = true;
+			
+			imageFileName = "handCards/JS.png";
+			break;
+		case 42:
+		case 94:
+			//J of H
+			x1 = 0; y1 = 9;
+			isOneEyedJack = true;
+			
+			imageFileName = "handCards/JH.png";
+			break;
+		case 43:
+		case 95:
+			//J of D
+			x1 = 9; y1 = 0;
+			isTwoEyedJack = true;
+			
+			imageFileName = "handCards/JD.png";
+			break;
+		case 44:
+		case 96:
+			//J of C
+			x1 = 9; y1 = 9;
+			isTwoEyedJack = true;
+			
+			imageFileName = "handCards/JC.png";
+			break;
+		 */
 	}
 
 }

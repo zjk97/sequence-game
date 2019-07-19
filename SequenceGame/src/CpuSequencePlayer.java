@@ -19,6 +19,7 @@ public class CpuSequencePlayer extends ASequencePlayer {
 			int len = hand.size();
 			int index = r.nextInt(len);
 			ASequenceCard c = hand.get(index);
+			game.lastPlayedCard = c;
 			
 			if(c.getIsOneEyedJack()) {
 				//one eyed jack
@@ -34,7 +35,7 @@ public class CpuSequencePlayer extends ASequencePlayer {
 							hand.remove(index);
 							game.lastPlayedX = -1;
 
-							System.out.println("CPU's move: " + i + ", " + j);
+							//System.out.println("CPU's move: " + i + ", " + j);
 							isPlayed = true;
 							break outerloop;
 						}
@@ -88,7 +89,7 @@ public class CpuSequencePlayer extends ASequencePlayer {
 						game.lastPlayedX = x1;
 						game.lastPlayedY = y1;
 						
-						System.out.println("CPU's move: " + x1 + ", " + y1);
+						//System.out.println("CPU's move: " + x1 + ", " + y1);
 					}//inner if
 					else {
 						game.board[x2][y2] = playerColor;
@@ -106,7 +107,7 @@ public class CpuSequencePlayer extends ASequencePlayer {
 						game.lastPlayedX = x2;
 						game.lastPlayedY = y2;
 
-						System.out.println("CPU's move: " + x2 + ", " + y2);
+						//System.out.println("CPU's move: " + x2 + ", " + y2);
 					}//inner else
 					
 					hand.remove(index);
@@ -131,7 +132,7 @@ public class CpuSequencePlayer extends ASequencePlayer {
 						hand.remove(index);
 						isPlayed = true;
 						
-						System.out.println("CPU's move: " + x1 + ", " + y1);
+						//System.out.println("CPU's move: " + x1 + ", " + y1);
 				}
 				else if(game.board[x2][y2]==' ') {
 					game.board[x2][y2] = playerColor;
@@ -152,16 +153,18 @@ public class CpuSequencePlayer extends ASequencePlayer {
 					hand.remove(index);
 					isPlayed = true;
 
-					System.out.println("CPU's move: " + x2 + ", " + y2);
+					//System.out.println("CPU's move: " + x2 + ", " + y2);
 				}
 				else {
 					//recycle card and play a new card
 					//***isPlayed should be left as FALSE
-					hand.remove(index);
+					ASequenceCard temp = hand.remove(index);
+					
+					game.log.updateLog("CPU recycled a card: " + temp.getCardName());
 					
 					game.Chris.dealCard(this);
 
-					System.out.println("CPU's move: Recycled " + c.getImageFileName());
+					//System.out.println("CPU's move: Recycled " + c.getCardName());
 				}
 
 			}
@@ -169,7 +172,7 @@ public class CpuSequencePlayer extends ASequencePlayer {
 		
 		game.Chris.dealCard(this);
 
-		System.out.println("CPU ended turn");
+		//System.out.println("CPU ended turn");
 	}//end of makeAMove
 	
 	void selectColor(int i) {

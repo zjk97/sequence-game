@@ -15,8 +15,15 @@ public class ASequencePlayer {
 	
 	void printHand() {
 		for(ASequenceCard i : hand)
-			System.out.print(i.getImageFileName() + " ");
+			System.out.print(i.getCardName() + " ");
 		System.out.println("\n");
+	}
+	
+	String getHand() {
+		String s = "";
+		for(ASequenceCard i : hand)
+			s+=i.getCardName() + ", ";
+		return s;
 	}
 	
 }

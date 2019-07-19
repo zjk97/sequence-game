@@ -4,7 +4,7 @@ public class ASequenceCard {
 	private int cardNumber;
 	private int x1, y1, x2, y2;
 	private boolean isOneEyedJack = false, isTwoEyedJack = false, isJS, isJH, isJD, isJC;
-	private String imageFileName;
+	private String cardName;
 	
 	//getters
 	int getX1() {
@@ -47,8 +47,8 @@ public class ASequenceCard {
 		return isJC;
 	}
 	
-	String getImageFileName() {
-		return imageFileName;
+	String getCardName() {
+		return cardName;
 	}
 
 	public int getCardNumber() {
@@ -73,280 +73,280 @@ public class ASequenceCard {
 			//A of S
 			x1 = 1; y1 = 7; x2 = 9; y2 = 5;
 
-			imageFileName = "handCards/AS.png";
+			cardName = "AS";
 			break;
 		case 2:
 		case 54:
 			//A of H
 			x1 = 5; y1 = 8; x2 = 6; y2 = 5;
 
-			imageFileName = "handCards/AH.png";
+			cardName = "AH";
 			break;
 		case 3:
 		case 55:
 			//A of D
 			x1 = 1; y1 = 0; x2 = 6; y2 = 2;
 
-			imageFileName = "handCards/AD.png";
+			cardName = "AD";
 			break;
 		case 4:
 		case 56:
 			//A of C
 			x1 = 0; y1 = 1; x2 = 5; y2 = 2;
 
-			imageFileName = "handCards/AC.png";
+			cardName = "AC";
 			break;
 		case 5:
 		case 57:
 			//2 of S
 			x1 = 1; y1 = 9; x2 = 6; y2 = 1;
 
-			imageFileName = "handCards/2S.png";
+			cardName = "2S";
 			break;
 		case 6:
 		case 58:
 			//2 of H
 			x1 = 4; y1 = 4; x2 = 7; y2 = 1;
 
-			imageFileName = "handCards/2H.png";
+			cardName = "2H";
 			break;
 		case 7:
 		case 59:
 			//2 of D
 			x1 = 2; y1 = 7; x2 = 9; y2 = 4;
 
-			imageFileName = "handCards/2D.png";
+			cardName = "2D";
 			break;
 		case 8:
 		case 60:
 			//2 of C
 			x1 = 4; y1 = 8; x2 = 6; y2 = 6;
 
-			imageFileName = "handCards/2C.png";
+			cardName = "2C";
 			break;
 		case 9:
 		case 61:
 			//3 of S
 			x1 = 2; y1 = 9; x2 = 5; y2 = 1;
 
-			imageFileName = "handCards/3S.png";
+			cardName = "3S";
 			break;
 		case 10:
 		case 62:
 			//3 of H
 			x1 = 5; y1 = 4; x2 = 8; y2 = 1;
 
-			imageFileName = "handCards/3H.png";
+			cardName = "3H";
 			break;
 		case 11:
 		case 63:
 			//3 of D
 			x1 = 3; y1 = 7; x2 = 9; y2 = 3;
 
-			imageFileName = "handCards/3D.png";
+			cardName = "3D";
 			break;
 		case 12:
 		case 64:
 			//3 of C
 			x1 = 3; y1 = 8; x2 = 5; y2 = 6;
 
-			imageFileName = "handCards/3C.png";
+			cardName = "3C";
 			break;
 		case 13:
 		case 65:
 			//4 of S
 			x1 = 3; y1 = 9; x2 = 4; y2 = 1;
 
-			imageFileName = "handCards/4S.png";
+			cardName = "4S";
 			break;
 		case 14:
 		case 66:
 			//4 of H
 			x1 = 5; y1 = 5; x2 = 8; y2 = 2;
 
-			imageFileName = "handCards/4H.png";
+			cardName = "4H";
 			break;
 		case 15:
 		case 67:
 			//4 of D
 			x1 = 4; y1 = 7; x2 = 9; y2 = 2;
 
-			imageFileName = "handCards/4D.png";
+			cardName = "4D";
 			break;
 		case 16:
 		case 68:
 			//4 of C
 			x1 = 2; y1 = 8; x2 = 4; y2 = 6;
 
-			imageFileName = "handCards/4C.png";
+			cardName = "4C";
 			break;
 		case 17:
 		case 69:
 			//5 of S
 			x1 = 3; y1 = 1; x2 = 4; y2 = 9;
 
-			imageFileName = "handCards/5S.png";
+			cardName = "5S";
 			break;
 		case 18:
 		case 70:
 			//5 of H
 			x1 = 4; y1 = 5; x2 = 8; y2 = 3;
 
-			imageFileName = "handCards/5H.png";
+			cardName = "5H";
 			break;
 		case 19:
 		case 71:
 			//5 of D
 			x1 = 5; y1 = 7; x2 = 9; y2 = 1;
 
-			imageFileName = "handCards/5D.png";
+			cardName = "5D";
 			break;
 		case 20:
 		case 72:
 			//5 of C
 			x1 = 1; y1 = 8; x2 = 3; y2 = 6;
 
-			imageFileName = "handCards/5C.png";
+			cardName = "5C";
 			break;
 		case 21:
 		case 73:
 			//6 of S
 			x1 = 2; y1 = 1; x2 = 5; y2 = 9;
 
-			imageFileName = "handCards/6S.png";
+			cardName = "6S";
 			break;
 		case 22:
 		case 74:
 			//6 of H
 			x1 = 3; y1 = 5; x2 = 8; y2 = 4;
 
-			imageFileName = "handCards/6H.png";
+			cardName = "6H";
 			break;
 		case 23:
 		case 75:
 			//6 of D
 			x1 = 6; y1 = 7; x2 = 8; y2 = 0;
 
-			imageFileName = "handCards/6D.png";
+			cardName = "6D";
 			break;
 		case 24:
 		case 76:
 			//6 of C
 			x1 = 0; y1 = 8; x2 = 2; y2 = 6;
 
-			imageFileName = "handCards/6C.png";
+			cardName = "6C";
 			break;
 		case 25:
 		case 77:
 			//7 of S
 			x1 = 1; y1 = 1; x2 = 6; y2 = 9;
 
-			imageFileName = "handCards/7S.png";
+			cardName = "7S";
 			break;
 		case 26:
 		case 78:
 			//7 of H
 			x1 = 3; y1 = 4; x2 = 8; y2 = 5;
 
-			imageFileName = "handCards/7H.png";
+			cardName = "7H";
 			break;
 		case 27:
 		case 79:
 			//7 of D
 			x1 = 7; y1 = 0; x2 = 7; y2 = 7;
 
-			imageFileName = "handCards/7D.png";
+			cardName = "7D";
 			break;
 		case 28:
 		case 80:
 			//7 of C
 			x1 = 0; y1 = 7; x2 = 2; y2 = 5;
 
-			imageFileName = "handCards/7C.png";
+			cardName = "7C";
 			break;
 		case 29:
 		case 81:
 			//8 of S
 			x1 = 1; y1 = 2; x2 = 7; y2 = 9;
 
-			imageFileName = "handCards/8S.png";
+			cardName = "8S";
 			break;
 		case 30:
 		case 82:
 			//8 of H
 			x1 = 3; y1 = 3; x2 = 8; y2 = 6;
 
-			imageFileName = "handCards/8H.png";
+			cardName = "8H";
 			break;
 		case 31:
 		case 83:
 			//8 of D
 			x1 = 6; y1 = 0; x2 = 7; y2 = 6;
 
-			imageFileName = "handCards/8D.png";
+			cardName = "8D";
 			break;
 		case 32:
 		case 84:
 			//8 of C
 			x1 = 0; y1 = 6; x2 = 2; y2 = 4;
 
-			imageFileName = "handCards/8C.png";
+			cardName = "8C";
 			break;
 		case 33:
 		case 85:
 			//9 of S
 			x1 = 1; y1 = 3; x2 = 8; y2 = 9;
 
-			imageFileName = "handCards/9S.png";
+			cardName = "9S";
 			break;
 		case 34:
 		case 86:
 			//9 of H
 			x1 = 4; y1 = 3; x2 = 8; y2 = 7;
 
-			imageFileName = "handCards/9H.png";
+			cardName = "9H";
 			break;
 		case 35:
 		case 87:
 			//9 of D
 			x1 = 5; y1 = 0; x2 = 7; y2 = 5;
 
-			imageFileName = "handCards/9D.png";
+			cardName = "9D";
 			break;
 		case 36:
 		case 88:
 			//9 of C
 			x1 = 0; y1 = 5; x2 = 2; y2 = 3;
 
-			imageFileName = "handCards/9C.png";
+			cardName = "9C";
 			break;
 		case 37:
 		case 89:
 			//10 of S
 			x1 = 1; y1 = 4; x2 = 9; y2 = 8;
 
-			imageFileName = "handCards/10S.png";
+			cardName = "10S";
 			break;
 		case 38:
 		case 90:
 			//10 of H
 			x1 = 5; y1 = 3; x2 = 8; y2 = 8;
 
-			imageFileName = "handCards/10H.png";
+			cardName = "10H";
 			break;
 		case 39:
 		case 91:
 			//10 of D
 			x1 = 4; y1 = 0; x2 = 7; y2 = 4;
 
-			imageFileName = "handCards/10D.png";
+			cardName = "10D";
 			break;
 		case 40:
 		case 92:
 			//10 of C
 			x1 = 0; y1 = 4; x2 = 2; y2 = 2;
 
-			imageFileName = "handCards/10C.png";
+			cardName = "10C";
 			break;
 		case 41:
 		case 93:
@@ -354,7 +354,7 @@ public class ASequenceCard {
 			x1 = 0; y1 = 0;
 			isOneEyedJack = true;
 			
-			imageFileName = "handCards/JS.png";
+			cardName = "JS";
 			break;
 		case 42:
 		case 94:
@@ -362,7 +362,7 @@ public class ASequenceCard {
 			x1 = 0; y1 = 9;
 			isOneEyedJack = true;
 			
-			imageFileName = "handCards/JH.png";
+			cardName = "JH";
 			break;
 		case 43:
 		case 95:
@@ -370,7 +370,7 @@ public class ASequenceCard {
 			x1 = 9; y1 = 0;
 			isTwoEyedJack = true;
 			
-			imageFileName = "handCards/JD.png";
+			cardName = "JD";
 			break;
 		case 44:
 		case 96:
@@ -378,64 +378,65 @@ public class ASequenceCard {
 			x1 = 9; y1 = 9;
 			isTwoEyedJack = true;
 			
-			imageFileName = "handCards/JC.png";
+			cardName = "JC";
 			break;
 		case 45:
 		case 97:
 			//Q of S
 			x1 = 1; y1 = 5; x2 = 9; y2 = 7;
 
-			imageFileName = "handCards/QS.png";
+			cardName = "QS";
 			break;
 		case 46:
 		case 98:
 			//Q of H
 			x1 = 6; y1 = 3; x2 = 7; y2 = 8;
 
-			imageFileName = "handCards/QH.png";
+			cardName = "QH";
 			break;
 		case 47:
 		case 99:
 			//Q of D
 			x1 = 3; y1 = 0; x2 = 7; y2 = 3;
 
-			imageFileName = "handCards/QD.png";
+			cardName = "QD";
 			break;
 		case 48:
 		case 100:
 			//Q of C
 			x1 = 0; y1 = 3; x2 = 3; y2 = 2;
 
-			imageFileName = "handCards/QC.png";
+			cardName = "QC";
 			break;
 		case 49:
 		case 101:
 			//K of S
 			x1 = 1; y1 = 6; x2 = 9; y2 = 6;
 
-			imageFileName = "handCards/KS.png";
+			cardName = "KS";
 			break;
 		case 50:
 		case 102:
 			//K of H
 			x1 = 6; y1 = 4; x2 = 6; y2 = 8;
 
-			imageFileName = "handCards/KH.png";
+			cardName = "KH";
 			break;
 		case 51:
 		case 103:
 			//K of D
 			x1 = 2; y1 = 0; x2 = 7; y2 = 2;
 
-			imageFileName = "handCards/KD.png";
+			cardName = "KD";
 			break;
 		case 52:
 		case 104:
 			//K of C
 			x1 = 0; y1 = 2; x2 = 4; y2 = 2;
 
-			imageFileName = "handCards/KC.png";
+			cardName = "KC";
 			break;
+
 
 
 		
