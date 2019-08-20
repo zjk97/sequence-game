@@ -33,7 +33,9 @@ public class CpuSequencePlayer extends ASequencePlayer {
 							game.board[i][j] = ' ';
 							gui.tokenButtons[i][j].setIcon(null);
 							hand.remove(index);
-							game.lastPlayedX = -1;
+							game.oneEyedJackIsPlayed = true;
+							game.lastPlayedX = i;
+							game.lastPlayedY = j;
 
 							//System.out.println("CPU's move: " + i + ", " + j);
 							isPlayed = true;
@@ -61,7 +63,7 @@ public class CpuSequencePlayer extends ASequencePlayer {
 							game.lastPlayedX = i;
 							game.lastPlayedY = j;
 
-							System.out.println("CPU's move: " + i + ", " + j);
+							//System.out.println("CPU's move: " + i + ", " + j);
 							isPlayed = true;
 							break outerloop;
 						}

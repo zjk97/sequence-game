@@ -22,6 +22,7 @@ public class SequenceGame {
 	SequenceGameGUI gui;
 	SequenceGame thisGame = this;
 	Border empty = BorderFactory.createEmptyBorder();
+	boolean oneEyedJackIsPlayed = false;
 	//set by SequenceGameGUI:
 		//x and y coordinate of the card most recently played
 		int lastPlayedX = -1, lastPlayedY = -1;
@@ -137,9 +138,15 @@ public class SequenceGame {
 		 * determine if any player has won
 		 */
 		
-		//if one-eyed jack played, game must NOT be over
-		if(x==-1)
+		//game just started, game must NOT be over
+		if(lastPlayedX == -1)
 			return false;
+		
+		//if one-eyed jack played, game must NOT be over
+		if(oneEyedJackIsPlayed) {
+			oneEyedJackIsPlayed = false;
+			return false;
+		}
 		
 		//check corners
 		//Top-left
@@ -380,7 +387,7 @@ public class SequenceGame {
 					public void actionPerformed(ActionEvent e) {
 						//reset gui's jack fields
 						gui.twoEyedJackIsPlayed = false;
-						gui.oneEyedJackIsPlayed = false;
+						oneEyedJackIsPlayed = false;
 						
 						//reset recycle fields
 						gui.isRecycled = false;
@@ -432,7 +439,7 @@ public class SequenceGame {
 									for(int j=0; j<10; j++)
 											gui.tokenButtons[i][j].setEnabled(false);
 								
-								gui.oneEyedJackIsPlayed = true;
+								oneEyedJackIsPlayed = true;
 								gui.jackNumber = cardNumber;
 								//enable all the available token buttons
 								for(int i=0; i<10; i++)

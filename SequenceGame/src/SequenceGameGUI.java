@@ -15,7 +15,7 @@ public class SequenceGameGUI extends JFrame {
 	//button for card deck
 	JButton deckButton;
 	//controlled by SequenceGame, set when a jack in hand is played 
-	boolean twoEyedJackIsPlayed, oneEyedJackIsPlayed;
+	boolean twoEyedJackIsPlayed;
 	int jackNumber;
 	//controlled by SequenceGame, set when a card is recycled
 	boolean isRecycled;
@@ -193,10 +193,9 @@ public class SequenceGameGUI extends JFrame {
 	        											.getHandMap().get(card.getCardNumber()));
 	        						handPanel.repaint();
         						}//end of inner if
-        						//5. reset jack fields
-        						oneEyedJackIsPlayed = false;
-        						//6. update SequenceGame
-        						game.lastPlayedX = -1;
+        						//5. update SequenceGame
+        						game.lastPlayedX = t.i;
+        						game.lastPlayedY = t.j;
         						game.lastPlayedCard = card;
         						game.resume();
         					}
