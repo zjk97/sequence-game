@@ -1,5 +1,5 @@
 # Sequence Game
-Version 1.0.0 (7/19/19)
+Version 1.0.1 (8/20/19)
 zjk97
 JRE System Library: JavaSE-1.8
 
@@ -18,3 +18,11 @@ JRE System Library: JavaSE-1.8
 ### SequenceLog
 - Starting in version 1.0.0, a text file (SequenceLog<timestamp>.txt) will be generated every time the game is played in the directory of SequenceGame.jar
 - If you experience any crashes and/or glitches, please consider sending back a copy of the log file for future improvement
+
+### Updates
+#### Version 1.0.1 (8/20/19)
+- Changed how isGameOver method determines whether a one eyed jack has been played (from setting lastPlayedX to -1 to using boolean isOneEyedJackPlayed)
+- Fixed the issue that writes to SequenceLog the incorrect x value of a player's move when an one eyed jack is played
+
+### Previous Versions
+- Version 1.0.0 (7/19/19)
