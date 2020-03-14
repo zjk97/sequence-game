@@ -23,7 +23,8 @@ public class SequenceGame {
 	SequenceGame thisGame = this;
 	Border empty = BorderFactory.createEmptyBorder();
 	boolean oneEyedJackIsPlayed = false;
-	//set by SequenceGameGUI:
+	int isStartingNewGame = JOptionPane.YES_OPTION;
+	// set by SequenceGameGUI:
 		//x and y coordinate of the card most recently played
 		int lastPlayedX = -1, lastPlayedY = -1;
 		ASequenceCard lastPlayedCard;
@@ -49,10 +50,9 @@ public class SequenceGame {
         System.out.println(startUpTime);
         
         startGame(numberOfPlayers);
+        isStartingNewGame = JOptionPane.showConfirmDialog(gui, "Waste your life on this game", 
+        		"Play again?", JOptionPane.YES_NO_OPTION);
         gui.dispose();
-        //give notice while starting a new game
-		JOptionPane.showMessageDialog(null,"Loading a new game...",
-				"Just a second",JOptionPane.INFORMATION_MESSAGE);
 	}
 
 
@@ -674,6 +674,18 @@ public class SequenceGame {
 
 		while(true) {
 			SequenceGame g = new SequenceGame(1);
+
+	        //give notice while starting a new game
+			if(g.isStartingNewGame == JOptionPane.YES_OPTION) {
+				JOptionPane.showMessageDialog(null,"Loading a new game...",
+						"Just a second",JOptionPane.INFORMATION_MESSAGE);
+			}
+			else {
+				JOptionPane.showMessageDialog(null,"Bye :(",
+						"Play again!",JOptionPane.INFORMATION_MESSAGE);
+				
+				break;
+			}
 
 			/*
 			ASequencePlayer[] l = g.playerList;
